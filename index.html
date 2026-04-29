@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruv Kumar - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --bg-secondary: rgba(17, 24, 39, 0.7);
+            --card-bg: rgba(31, 41, 55, 0.4);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.15);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #8b5cf6; /* Violet */
+            --accent-glow: rgba(139, 92, 246, 0.4);
+            --accent-secondary: #06b6d4; /* Cyan */
+            --gradient: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            
+            font-family: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: var(--accent-secondary); transition: all 0.3s ease; }
+        a:hover { color: #fff; }
+
+        /* --- HEADER --- */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            gap: 60px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* --- SIDEBAR (Profile) --- */
+        .sidebar { width: 300px; flex-shrink: 0; }
+        .avatar-container {
+            position: relative;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+        .avatar {
+            width: 220px; 
+            height: 220px;
+            border-radius: 20px; 
+            object-fit: cover;
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--bg-color), var(--bg-color)), var(--gradient);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .avatar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px -10px var(--accent-glow);
+        }
+        
+        .vcard-names { margin-bottom: 16px; }
+        .vcard-fullname { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; }
+        .vcard-username { font-size: 16px; font-weight: 400; color: var(--text-muted); margin-top: 4px; }
+        
+        .user-profile-bio { 
+            margin-bottom: 24px; 
+            font-size: 15px; 
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .btn-profile {
+            display: inline-block; width: 100%; text-align: center;
+            background: var(--gradient); 
+            color: white; 
+            padding: 12px 20px; border-radius: 12px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; 
+            margin-bottom: 24px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        .btn-profile:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+            color: white;
+        }
+
+        .vcard-details { 
+            list-style: none; margin-bottom: 32px; 
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+        .vcard-details li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; color: var(--text-muted); font-size: 14px;}
+        .vcard-details li:last-child { margin-bottom: 0; }
+        .vcard-details svg { fill: var(--text-muted); width: 18px; height: 18px; flex-shrink: 0;}
+
+        .skills-section h2 { font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px;}
+        .skills-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px;
+            font-size: 13px; font-weight: 500; color: var(--text-main); 
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .badge:hover {
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .content { flex-grow: 1; min-width: 0; }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .repo-count { 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 20px; padding: 2px 12px; font-size: 13px; font-weight: 600;
+            color: var(--accent-secondary);
+        }
+
+        /* --- REPOSITORY FILTER BAR --- */
+        .repo-filter-bar {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 32px;
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        .local-search {
+            background: rgba(0, 0, 0, 0.2); 
+            border: 1px solid var(--border-color);
+            padding: 10px 16px; border-radius: 10px; color: var(--text-main);
+            width: 100%; max-width: 300px; font-size: 14px; font-family: inherit;
+            outline: none; transition: all 0.3s ease;
+        }
+        .local-search:focus { 
+            border-color: var(--accent); 
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); 
+        }
+        .local-search::placeholder { color: var(--text-muted); }
+        
+        .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
+            color: var(--text-muted); padding: 8px 16px; border-radius: 20px;
+            font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .filter-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
+        .filter-btn.active { 
+            background: var(--gradient); 
+            color: #fff; border-color: transparent; 
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        /* Repositories Grid */
+        .repo-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px;
+        }
+
+        /* Repo Card */
+        .repo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            display: flex; flex-direction: column; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+            backdrop-filter: blur(12px);
+            position: relative;
+        }
+        .repo-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .repo-card:hover { 
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        .card-cover-image { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .repo-card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .repo-title { font-size: 18px; font-weight: 600; color: #fff; word-break: break-word; transition: color 0.2s; margin-bottom: 8px;}
+        .repo-card:hover .repo-title { color: var(--accent-secondary); }
+        
+        .repo-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6;}
+        
+        .repo-footer { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: auto;}
+        
+        .lang-badge { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px;}
+        .lang-color { width: 10px; height: 10px; border-radius: 50%; display: inline-block;}
+        .lang-excel { background-color: #10b981; box-shadow: 0 0 8px #10b981;}
+        .lang-looker { background-color: #3b82f6; box-shadow: 0 0 8px #3b82f6;}
+        .lang-tableau { background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b;}
+        .lang-python { background-color: #fbbf24; box-shadow: 0 0 8px #fbbf24;}
+
+        /* No Results Message */
+        .no-results { display: none; padding: 60px 20px; text-align: center; color: var(--text-muted); background: var(--bg-secondary); border: 1px dashed var(--border-hover); border-radius: 16px; grid-column: 1 / -1;}
+        .no-results-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+
+        /* --- SITE FOOTER --- */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 40px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(16px);
+        }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s;}
+        .footer-links a:hover { color: var(--accent-secondary); }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000;
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 24px;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: #111827; border: 1px solid var(--border-color); border-radius: 24px;
+            width: 100%; max-width: 650px; max-height: 90vh; display: flex; flex-direction: column;
+            transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            position: relative;
+        }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        
+        .modal-img-container { position: relative; width: 100%; height: 280px; }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, #111827); }
+        
+        .close-btn { 
+            position: absolute; top: 16px; right: 16px;
+            background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); 
+            color: white; border-radius: 50%; width: 36px; height: 36px;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.2s; backdrop-filter: blur(4px);
+            z-index: 20;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.1); transform: scale(1.1); }
+        .close-btn svg { width: 18px; height: 18px; fill: currentColor;}
+
+        .modal-body { padding: 0 32px 24px; margin-top: -60px; position: relative; z-index: 10; overflow-y: auto; flex-grow: 1; }
+        .modal-title { font-size: 28px; font-weight: 700; color: white; margin-bottom: 16px; line-height: 1.2;}
+        .modal-desc { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+        
+        .modal-footer { padding: 24px 32px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 16px; background: rgba(0,0,0,0.2); flex-shrink: 0; }
+        .btn-cancel { 
+            background: transparent; border: 1px solid var(--border-color); 
+            color: var(--text-main); padding: 12px 24px; border-radius: 12px; 
+            font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .btn-cancel:hover { background: rgba(255,255,255,0.05); }
+        .btn-primary { 
+            background: var(--gradient); border: none; 
+            color: white; padding: 12px 28px; border-radius: 12px; 
+            font-weight: 600; cursor: pointer; text-decoration: none; 
+            transition: all 0.2s; font-family: inherit;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); color: white;}
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; padding: 32px 20px; gap: 40px;}
+            .sidebar { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+            .vcard-details { width: 100%; max-width: 500px; }
+            .vcard-details li { justify-content: center; }
+            .skills-section { width: 100%; max-width: 500px; }
+            .skills-badges { justify-content: center; }
+            .site-footer { flex-direction: column; gap: 16px; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            .repo-grid { grid-template-columns: 1fr; }
+            .repo-filter-bar { flex-direction: column; align-items: stretch; }
+            .local-search { max-width: 100%; }
+            .filter-buttons { justify-content: center; }
+            header { padding: 16px 20px; }
+            .modal-title { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-logo">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-secondary)"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            <span>Dhruv Kumar</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="avatar-container">
+                <img src="https://api.dicebear.com/9.x/micah/svg?seed=Zen&backgroundColor=transparent" alt="Dhruv Kumar" class="avatar">
+            </div>
+            
+            <div class="vcard-names">
+                <h1 class="vcard-fullname">Dhruv Kumar</h1>
+                <h2 class="vcard-username">dhruvkumar</h2>
+            </div>
+            
+            <div class="user-profile-bio">
+                Data Analyst turning complex datasets into clear, actionable intelligence. I build scalable models and dynamic dashboards.
+            </div>
+            
+            <a href="mailto:drvkmr2006@gmail.com" class="btn-profile">Follow / Contact</a>
+            
+            <ul class="vcard-details">
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    New Delhi, India
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <a href="mailto:drvkmr2006@gmail.com">drvkmr2006@gmail.com</a>
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <a href="tel:+919876543210">+91 9876543210</a>
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <a href="https://www.linkedin.com/in/dhruvkumar2006/" target="_blank">LinkedIn Profile</a>
+                </li>
+            </ul>
+
+            <div class="skills-section">
+                <h2>Organizations / Skills</h2>
+                <div class="skills-badges">
+                    <span class="badge">Excel</span>
+                    <span class="badge">Looker Studio</span>
+                    <span class="badge">Tableau</span>
+                    <span class="badge">Python</span>
+                    <span class="badge">SQL</span>
+                    <span class="badge">Pandas</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <h2 class="section-title">
+                Repositories <span class="repo-count" id="repo-count-badge">8</span>
+            </h2>
+
+            <div class="repo-filter-bar">
+                <input type="text" id="repo-search" class="local-search" placeholder="Search projects...">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="excel">Excel</button>
+                    <button class="filter-btn" data-filter="looker">Looker</button>
+                    <button class="filter-btn" data-filter="python">Python</button>
+                    <button class="filter-btn" data-filter="tableau">Tableau</button>
+                </div>
+            </div>
+
+            <div class="repo-grid" id="repo-grid">
+                
+                <div class="repo-card open-modal-btn" data-category="excel" data-title="Airbnb Revenue & Occupancy Optimization Analysis" data-img="https://images.unsplash.com/photo-1543286386-2e659306cd6c?auto=format&fit=crop&w=800&q=80" data-link="https://github.com/drv-01/Dva-Capstone.git" data-desc="Delivers data-backed recommendations on optimal pricing, high-performing locations, ideal room types, and host strategies to maximize revenue and occupancy. Analyzes neighborhoods, room types, pricing strategies, occupancy patterns, and host behavior to identify factors driving higher revenue.">
+                    <img src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?auto=format&fit=crop&w=800&q=80" alt="Cover" class="card-cover-image">
+                    <div class="repo-card-body">
+                        <h3 class="repo-title">Airbnb Revenue & Occupancy Optimization</h3>
+                        <p class="repo-desc">Analyzes neighborhoods, room types, pricing strategies, occupancy patterns, and host behavior to identify factors driving higher revenue.</p>
+                        <div class="repo-footer">
+                            <span class="lang-badge"><span class="lang-color lang-excel"></span> Excel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="repo-card open-modal-btn" data-category="tableau" data-title="Customer-Analysis" data-img="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" data-link="https://github.com/drv-01/Customer-Analysis" data-desc="Interactive parameters highlighting demographic health shifts utilizing Tableau parameters and calculations. Evaluates revenue trends, customer demographics, products, discounts, and regional performance.">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Cover" class="card-cover-image">
+                    <div class="repo-card-body">
+                        <h3 class="repo-title">Customer Analysis Dashboard</h3>
+                        <p class="repo-desc">Evaluates revenue trends, customer demographics, products, discounts, and regional performance using advanced Tableau calculations.</p>
+                        <div class="repo-footer">
+                            <span class="lang-badge"><span class="lang-color lang-tableau"></span> Tableau</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="repo-card open-modal-btn" data-category="tableau" data-title="Uber-Data-Analysis Public" data-img="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80" data-link="https://github.com/drv-01/Uber-Data-Analysis" data-desc="Delivered actionable findings to optimize pricing, improve demand forecasting, and enhance operational efficiency. Analyzed time trends, distance, pricing, and locations to identify peak hours, ride patterns, and key revenue drivers.">
+                    <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80" alt="Cover" class="card-cover-image">
+                    <div class="repo-card-body">
+                        <h3 class="repo-title">Uber Data Analysis</h3>
+                        <p class="repo-desc">Analyzed time trends, distance, pricing, and locations to identify peak hours, ride patterns, and key revenue drivers.</p>
+                        <div class="repo-footer">
+                            <span class="lang-badge"><span class="lang-color lang-tableau"></span> Tableau</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="repo-card open-modal-btn" data-category="tableau" data-title="Olist Marketplace Analytics" data-img="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" data-link="https://github.com/drv-01/SectionB_Group10_OlistCommerce" data-desc="Provides data-driven strategies to optimize pricing, boost occupancy, and enhance overall performance. Analyzes pricing, occupancy, listings, and host strategies to uncover key revenue drivers.">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Cover" class="card-cover-image">
+                    <div class="repo-card-body">
+                        <h3 class="repo-title">Olist Marketplace Analytics</h3>
+                        <p class="repo-desc">Analyzes pricing, occupancy, listings, and host strategies to uncover key revenue drivers in the Olist e-commerce ecosystem.</p>
+                        <div class="repo-footer">
+                            <span class="lang-badge"><span class="lang-color lang-tableau"></span> Tableau</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="no-results" id="no-results-msg">
+                    <div class="no-results-icon">🔍</div>
+                    <p>No repositories match your search or filter.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> Dhruv Kumar. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://www.linkedin.com/in/dhruvkumar2006/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/" target="_blank">GitHub</a>
+            <a href="mailto:drvkmr2006@gmail.com">Contact</a>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-img-container">
+                <img src="" id="m-img" alt="Project Cover" class="modal-img">
+                <div class="modal-img-overlay"></div>
+                <button class="close-btn" id="close-modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="m-title">Project Title</h2>
+                <p class="modal-desc" id="m-desc">Full description goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancel-modal">Close</button>
+                <a href="#" target="_blank" class="btn-primary" id="m-link">View Live Repository</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. DYNAMIC FOOTER YEAR ---
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- 2. SEARCH AND FILTER FUNCTIONALITY ---
+        const searchInput = document.getElementById('repo-search');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const repoCards = document.querySelectorAll('.repo-card');
+        const repoCountBadge = document.getElementById('repo-count-badge');
+        const noResultsMsg = document.getElementById('no-results-msg');
+
+        let currentSearchTerm = '';
+        let currentFilter = 'all';
+
+        function filterRepositories() {
+            let visibleCount = 0;
+
+            repoCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const desc = card.getAttribute('data-desc').toLowerCase();
+                const category = card.getAttribute('data-category');
+                
+                const matchesSearch = title.includes(currentSearchTerm) || desc.includes(currentSearchTerm);
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            repoCountBadge.innerText = visibleCount;
+            noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Handle Text Search
+        searchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase();
+            filterRepositories();
+        });
+
+        // Handle Button Filters
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentFilter = btn.getAttribute('data-filter');
+                filterRepositories();
+            });
+        });
+
+        // Set initial count
+        filterRepositories();
+
+        // --- 3. MODAL LOGIC ---
+        const modal = document.getElementById('modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const cancelModalBtn = document.getElementById('cancel-modal');
+
+        const mTitle = document.getElementById('m-title');
+        const mDesc = document.getElementById('m-desc');
+        const mImg = document.getElementById('m-img');
+        const mLink = document.getElementById('m-link');
+
+        // Open Modal
+        repoCards.forEach(project => {
+            project.addEventListener('click', () => {
+                mTitle.textContent = project.getAttribute('data-title');
+                mDesc.textContent = project.getAttribute('data-desc');
+                mImg.src = project.getAttribute('data-img');
+                mLink.href = project.getAttribute('data-link');
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        // Close Modal
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        };
+
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelModalBtn.addEventListener('click', closeModal);
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(); 
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal(); 
+        });
+    </script>
+</body>
+</html>
