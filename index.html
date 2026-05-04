@@ -133,6 +133,23 @@
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
             color: white;
         }
+        .btn-resume {
+            display: inline-flex; width: 100%; justify-content: center; align-items: center; gap: 8px;
+            background: transparent;
+            border: 1px solid var(--border-hover);
+            color: var(--text-main); 
+            padding: 12px 20px; border-radius: 12px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; 
+            margin-bottom: 24px;
+            font-family: inherit; font-size: 15px;
+            text-decoration: none;
+        }
+        .btn-resume:hover { 
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
 
         .vcard-details { 
             list-style: none; margin-bottom: 32px; 
@@ -380,6 +397,10 @@
             </div>
             
             <a href="mailto:drvkmr2006@gmail.com" class="btn-profile">Follow / Contact</a>
+            <a href="Resume-DHRUV KUMAR.pdf" download class="btn-resume">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Resume
+            </a>
             
             <ul class="vcard-details">
                 <li>
